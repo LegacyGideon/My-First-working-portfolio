@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 15 500 530" fill="none">
+  <defs>
+    <radialGradient id="ocean" cx="0" cy="0" r="1" gradientTransform="matrix(185 205 -205 185 260 195)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35D9D0"/>
+      <stop offset=".48" stop-color="#1767B8"/>
+      <stop offset="1" stop-color="#101536"/>
+    </radialGradient>
+    <linearGradient id="landGreen" x1="151" x2="329" y1="167" y2="406" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#82F0C1"/>
+      <stop offset=".5" stop-color="#28A98A"/>
+      <stop offset="1" stop-color="#126B72"/>
+    </linearGradient>
+    <linearGradient id="landGold" x1="284" x2="418" y1="174" y2="407" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE7A0"/>
+      <stop offset=".52" stop-color="#E9A968"/>
+      <stop offset="1" stop-color="#A95D62"/>
+    </linearGradient>
+    <radialGradient id="sphereShade" cx=".28" cy=".2" r=".82">
+      <stop stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".38" stop-color="#fff" stop-opacity=".03"/>
+      <stop offset="1" stop-color="#030719" stop-opacity=".78"/>
+    </radialGradient>
+    <linearGradient id="ribbonA" x1="120" x2="526" y1="108" y2="454" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6C8F0"/>
+      <stop offset=".42" stop-color="#B886E8"/>
+      <stop offset="1" stop-color="#547EEA"/>
+    </linearGradient>
+    <linearGradient id="ribbonB" x1="105" x2="523" y1="412" y2="124" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5EE7E3"/>
+      <stop offset=".45" stop-color="#6387F4"/>
+      <stop offset="1" stop-color="#D2A0F2"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="202" x2="391" y1="121" y2="451" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="globeClip">
+      <circle cx="320" cy="280" r="139"/>
+    </clipPath>
+    <filter id="glow" width="1.7" height="1.7" x="-.35" y="-.35" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="ribbonShadow" x="-.2" y="-.2" width="1.4" height="1.5" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>
+      <feOffset in="blur" dx="3" dy="9" result="offsetBlur"/>
+      <feFlood flood-color="#02030b" flood-opacity=".78" result="shadowColor"/>
+      <feComposite in="shadowColor" in2="offsetBlur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="320" cy="280" r="188" fill="#8068D8" fill-opacity=".12" filter="url(#glow)"/>
+
+  <g fill="#D9D5FF">
+    <circle cx="112" cy="153" r="2"/><circle cx="171" cy="91" r="1.5"/>
+    <circle cx="481" cy="94" r="2"/><circle cx="553" cy="176" r="1.5"/>
+    <circle cx="89" cy="324" r="1.5"/><circle cx="538" cy="374" r="2"/>
+    <circle cx="178" cy="474" r="1.5"/><circle cx="433" cy="493" r="2"/>
+    <circle cx="319" cy="57" r="1.5"/><circle cx="594" cy="288" r="1.5"/>
+  </g>
+
+  <circle cx="320" cy="280" r="139" fill="url(#ocean)"/>
+  <g clip-path="url(#globeClip)" opacity=".72">
+    <path d="M197 157c23 13 29 28 25 43-5 16-23 23-19 39 5 17 30 18 39 34 10 18-3 40 7 57 9 15 31 16 41 30 11 15 7 35 18 49 12 16 33 19 43 35 7 11 7 25 8 38l-95 34-164-87-46-150 61-126 82-46Z" fill="url(#landGreen)"/>
+    <path d="M327 132c16 10 20 24 31 34 13 11 34 12 42 27 9 17-2 38 6 55 7 15 26 23 30 39 4 17-9 33-7 50 2 17 19 31 18 48-1 16-19 29-20 45-1 14 12 28 9 42-3 15-23 24-36 33l-81-39 6-80-32-66 16-90 18-98Z" fill="url(#landGold)"/>
+    <path d="m156 188 63-28 33 28-17 42-53 16-36-25 10-33Zm139 14 47-22 26 35-22 39-48-2-26-26 23-24Zm-66 104 48-19 43 33-6 44-50 13-38-31 3-40Z" fill="#FFE7A0"/>
+    <path d="M184 211c38-33 86-52 138-52 63 0 119 27 157 70M172 262c42-30 93-47 148-47 61 0 117 21 159 56M177 315c41-25 90-39 143-39 56 0 108 15 150 42M193 366c36-18 79-28 127-28 46 0 89 9 125 25" stroke="#D8F4FF" stroke-opacity=".58" stroke-width="2"/>
+    <ellipse cx="320" cy="280" stroke="#D8F4FF" stroke-opacity=".52" stroke-width="2" rx="57" ry="139"/>
+    <ellipse cx="320" cy="280" stroke="#D8F4FF" stroke-opacity=".32" stroke-width="2" rx="105" ry="139"/>
+    <path d="M183 280h274" stroke="#D8F4FF" stroke-opacity=".45" stroke-width="2"/>
+    <circle cx="320" cy="280" r="139" fill="url(#sphereShade)"/>
+    <circle cx="320" cy="280" r="139" fill="url(#shine)"/>
+  </g>
+  <circle cx="320" cy="280" r="142" stroke="#B6A8FF" stroke-opacity=".65" stroke-width="2"/>
+
+  <g stroke-linecap="round" filter="url(#ribbonShadow)">
+    <path d="M119 205c71-115 310-139 402-26 68 84-23 89-99 31-99-75-226-84-271-8-45 75 13 150 100 180 106 36 228 9 266-53 37-60-17-109-87-120" stroke="url(#ribbonA)" stroke-width="24"/>
+    <path d="M126 343c76 94 259 125 365 42 78-61 29-102-52-63-99 47-208 49-259-5-49-52-16-116 55-146 79-34 180-15 232 24" stroke="url(#ribbonB)" stroke-width="18"/>
+    <path d="M138 204c76-83 240-96 328-29 54 41 27 57-22 27-91-55-206-60-258-4-48 53-6 109 64 132 80 27 177 7 218-36" stroke="#FFF" stroke-opacity=".28" stroke-width="3"/>
+    <path d="M161 365c83 62 211 71 293 18 43-28 48-54 21-62" stroke="#FFF" stroke-opacity=".24" stroke-width="3"/>
+  </g>
+
+  <circle cx="118" cy="205" r="5" fill="#F3C8F0"/>
+  <circle cx="521" cy="179" r="4" fill="#B2A0FF"/>
+  <circle cx="491" cy="385" r="5" fill="#6FE4DA"/>
+</svg>

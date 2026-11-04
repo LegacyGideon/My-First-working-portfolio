@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101a18" />
+    <title>Simon - Memory Game</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <main class="game-wrapper">
+        <p class="eyebrow">MEMORY GAME</p>
+        <h1 id="level-title">Simon</h1>
+        <p id="game-status" aria-live="polite">Watch the pattern, then repeat it.</p>
+        <button id="start-button" type="button">Start Game</button>
+
+        <section class="container" aria-label="Simon game board">
+            <button class="btn green" type="button" aria-label="Green"></button>
+            <button class="btn red" type="button" aria-label="Red"></button>
+            <button class="btn yellow" type="button" aria-label="Yellow"></button>
+            <button class="btn blue" type="button" aria-label="Blue"></button>
+        </section>
+
+        <p class="game-hint">Use your mouse, touch screen, or Tab and Enter to play.</p>
+    </main>
+
+    <footer>© <span id="year"></span> Daniel Gideon</footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

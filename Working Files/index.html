@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08090d">
+    <meta
+        name="description"
+        content="Welcome to the portfolio of Daniel Gideon, a front-end developer."
+    >
+    <title>Welcome | Daniel Gideon</title>
+    <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+    <main class="welcome-stage">
+        <a class="welcome-brand" href="index.html" aria-label="Daniel Gideon home">
+            <span class="brand-mark">&lt;/&gt;</span>
+            <span>Daniel Gideon</span>
+        </a>
+        <button
+            class="welcome-theme-toggle"
+            id="welcome-theme-toggle"
+            type="button"
+            aria-label="Switch to light mode"
+            aria-pressed="false"
+        >
+            <span class="welcome-theme-icon" aria-hidden="true">☀</span>
+            <span class="welcome-theme-text">Light mode</span>
+        </button>
+
+        <div class="welcome-glow" aria-hidden="true"></div>
+        <img
+            class="welcome-globe"
+            src="../Images/contact-globe.svg"
+            alt=""
+            aria-hidden="true"
+        >
+
+        <section class="welcome-content" aria-labelledby="welcome-title">
+            <p class="welcome-eyebrow">
+                <span class="welcome-status"></span>
+                FRONT-END DEVELOPER · PORTFOLIO
+            </p>
+            <h1 id="welcome-title">
+                Let’s make<br>
+                <span>something meaningful.</span>
+            </h1>
+            <p class="welcome-description">
+                A little curiosity, a lot of learning, and ideas brought to life on the web.
+            </p>
+            <a class="welcome-cta" id="enter-portfolio" href="portfolio.html">
+                Say hello
+                <span class="cta-arrow" aria-hidden="true">↗</span>
+            </a>
+            <p class="welcome-hint">Step inside and explore my work</p>
+        </section>
+
+        <p class="welcome-footer">DESIGNED &amp; BUILT BY DANIEL GIDEON</p>
+    </main>
+    <script src="welcome.js"></script>
+</body>
+</html>

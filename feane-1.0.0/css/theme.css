@@ -1,0 +1,278 @@
+:root {
+  --feane-forest: #18372d;
+  --feane-forest-deep: #10271f;
+  --feane-terracotta: #d9774c;
+  --feane-terracotta-dark: #b95734;
+  --feane-cream: #fff8ed;
+  --feane-sand: #f0e5d5;
+  --feane-ink: #26352e;
+}
+
+body {
+  color: var(--feane-ink);
+  background-color: var(--feane-cream);
+}
+
+.hero_area .bg-box {
+  z-index: 0;
+}
+
+.hero_area .bg-box::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgb(16 39 31 / 88%) 0%,
+    rgb(16 39 31 / 70%) 48%,
+    rgb(16 39 31 / 28%) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.hero_area > :not(.bg-box) {
+  position: relative;
+  z-index: 1;
+}
+
+.heading_container h2 span,
+.custom_nav-container .navbar-nav .nav-item:hover .nav-link,
+.custom_nav-container .navbar-nav .nav-item.active .nav-link,
+.custom_nav-container .nav_search-btn:hover,
+.user_option .user_link:hover,
+.footer_section .footer_contact .contact_link_box a:hover {
+  color: var(--feane-terracotta);
+}
+
+.user_option .order_online,
+.slider_section .detail-box a,
+.offer_section .box .detail-box a,
+.food_section .box .options a,
+.food_section .btn-box a,
+.about_section .detail-box a,
+.book_section .form_container button,
+.contact_section .form_container button,
+.client_section .owl-carousel .owl-nav .owl-prev,
+.client_section .owl-carousel .owl-nav .owl-next {
+  background-color: var(--feane-terracotta);
+}
+
+.user_option .order_online:hover,
+.slider_section .detail-box a:hover,
+.offer_section .box .detail-box a:hover,
+.food_section .btn-box a:hover,
+.about_section .detail-box a:hover,
+.book_section .form_container button:hover,
+.contact_section .form_container button:hover {
+  background-color: var(--feane-terracotta-dark);
+}
+
+.user_option .cart_link:hover svg {
+  fill: var(--feane-terracotta);
+}
+
+.custom_nav-container .nav_search-btn,
+.user_option .user_link,
+.user_option .cart_link svg {
+  color: #fff;
+  fill: #fff;
+}
+
+.offer_section .box {
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 20px;
+  background: var(--feane-forest);
+  box-shadow: 0 16px 35px rgb(16 39 31 / 18%);
+}
+
+.food_section .filters_menu li {
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.food_section .filters_menu li:hover {
+  color: var(--feane-terracotta-dark);
+}
+
+.food_section .filters_menu li.active {
+  background-color: var(--feane-forest);
+  color: #fff;
+}
+
+.food_section .box {
+  border: 1px solid rgb(24 55 45 / 8%);
+  background: linear-gradient(to bottom, var(--feane-sand) 25px, var(--feane-forest) 25px);
+  box-shadow: 0 14px 32px rgb(16 39 31 / 12%);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.food_section .box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 40px rgb(16 39 31 / 20%);
+}
+
+.food_section .box .img-box {
+  background: var(--feane-sand);
+}
+
+.about_section,
+.client_section .box .detail-box,
+.footer_section {
+  background-color: var(--feane-forest);
+  color: #fffaf2;
+}
+
+.about_section .detail-box p,
+.client_section .box .detail-box p,
+.footer_section p {
+  color: rgb(255 250 242 / 78%);
+}
+
+.client_section .box .img-box img {
+  border-color: var(--feane-terracotta);
+}
+
+.client_section .box .img-box::before {
+  background-color: var(--feane-terracotta);
+}
+
+.client_section .owl-carousel .owl-nav .owl-prev:hover,
+.client_section .owl-carousel .owl-nav .owl-next:hover {
+  background-color: var(--feane-terracotta-dark);
+}
+
+.book_section .form_container .form-control,
+.contact_section .form_container input {
+  border-color: #ddcfbd;
+  border-radius: 10px;
+  background-color: #fffdf9;
+  color: var(--feane-ink);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.book_section .form_container .form-control:focus,
+.contact_section .form_container input:focus {
+  border-color: var(--feane-terracotta);
+  box-shadow: 0 0 0 3px rgb(217 119 76 / 16%);
+}
+
+.book_section .form_container .form-control::placeholder,
+.contact_section .form_container input::placeholder {
+  color: #857c71;
+}
+
+.book_section .map_container {
+  border: 5px solid #fffdf9;
+  box-shadow: 0 15px 35px rgb(16 39 31 / 14%);
+}
+
+.footer_section .footer_social a {
+  color: var(--feane-forest);
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.footer_section .footer_social a:hover {
+  transform: translateY(-3px);
+  background-color: var(--feane-terracotta);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .food_section .filters_menu li,
+  .food_section .box,
+  .book_section .form_container .form-control,
+  .contact_section .form_container input,
+  .footer_section .footer_social a {
+    transition: none;
+  }
+
+  .food_section .box:hover,
+  .footer_section .footer_social a:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .header_section {
+    padding: 12px 0;
+  }
+
+  .custom_nav-container .navbar-brand span {
+    font-size: 28px;
+  }
+
+  .custom_nav-container .navbar-nav {
+    padding-left: 0;
+  }
+
+  .custom_nav-container .navbar-nav .nav-item .nav-link {
+    padding: 8px 16px;
+  }
+
+  .slider_section {
+    padding: 36px 0 68px;
+  }
+
+  .slider_section .detail-box {
+    max-width: 520px;
+    margin-bottom: 70px;
+  }
+
+  .slider_section .detail-box h1 {
+    max-width: 13ch;
+    font-size: clamp(2.6rem, 10vw, 3.4rem);
+    line-height: 1.08;
+  }
+
+  .slider_section .detail-box p {
+    max-width: 46ch;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .food_section .filters_menu {
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 30px 0 16px;
+    padding: 4px 2px 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .food_section .filters_menu li {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    white-space: nowrap;
+  }
+
+  .food_section .box .img-box {
+    height: 205px;
+    padding: 20px;
+  }
+
+  .food_section .box .detail-box {
+    padding: 20px;
+  }
+
+  .food_section .box .detail-box p {
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: 420px) {
+  .layout_padding {
+    padding: 64px 0;
+  }
+
+  .slider_section .detail-box h1 {
+    font-size: clamp(2.35rem, 10vw, 2.8rem);
+  }
+
+  .user_option .order_online {
+    padding: 8px 22px;
+  }
+}
