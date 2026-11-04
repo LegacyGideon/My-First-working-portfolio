@@ -61,8 +61,6 @@ if (themeToggle) {
         );
         themeToggle.querySelector(".theme-toggle-icon").textContent =
             isLight ? "☾" : "☀";
-        themeToggle.querySelector(".theme-toggle-text").textContent =
-            isLight ? "Dark mode" : "Light mode";
     };
 
     updateThemeToggle(initialTheme);
@@ -173,38 +171,7 @@ if (
         aboutSection.querySelectorAll(".about-photo")
     );
 
-    if (photosContainer && photos.length > 1) {
-        const photoDisplayDuration = 2000;
-        const flipDuration = 700;
-
-        const showNextPhoto = (currentIndex) => {
-            window.setTimeout(() => {
-                const currentPhoto = photos[currentIndex];
-                const nextIndex = currentIndex + 1;
-
-                currentPhoto.classList.remove("is-active");
-                currentPhoto.classList.add("is-leaving");
-
-                if (nextIndex < photos.length) {
-                    photos[nextIndex].classList.add("is-active");
-
-                    window.setTimeout(() => {
-                        currentPhoto.classList.remove("is-leaving");
-                    }, flipDuration);
-
-                    showNextPhoto(nextIndex);
-                    return;
-                }
-
-                window.setTimeout(() => {
-                    photosContainer.classList.remove("is-playing");
-                    photos.forEach((photo) => {
-                        photo.classList.remove("is-active", "is-leaving");
-                    });
-                }, flipDuration);
-            }, photoDisplayDuration);
-        };
-
+    if (photosContainer && photos.length > 0) {
         const aboutObserver = new IntersectionObserver(
             (entries, observer) => {
                 entries.forEach((entry) => {
@@ -213,11 +180,16 @@ if (
                     }
 
                     observer.unobserve(entry.target);
-                    photosContainer.classList.add("is-playing");
 
-                    window.requestAnimationFrame(() => {
-                        photos[0].classList.add("is-active");
-                        showNextPhoto(0);
+                    photos.forEach((photo, index) => {
+                        window.setTimeout(() => {
+                            photo.classList.add("is-entering");
+                            photo.addEventListener(
+                                "animationend",
+                                () => photo.classList.remove("is-entering"),
+                                { once: true }
+                            );
+                        }, index * 550);
                     });
                 });
             },

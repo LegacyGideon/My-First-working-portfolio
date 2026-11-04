@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="background" x1="72" y1="53" x2="1097" y2="762" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102B2D"/>
+      <stop offset=".52" stop-color="#123A42"/>
+      <stop offset="1" stop-color="#101A31"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="264" y1="142" x2="1009" y2="663" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6C75B"/>
+      <stop offset="1" stop-color="#E98C59"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 449 -512 0 929 169)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2DD4BF" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" stroke="#D3E5E5" stroke-opacity=".055"/>
+    </pattern>
+  </defs>
+  <path fill="url(#background)" d="M0 0h1200v800H0z"/>
+  <path fill="url(#glow)" d="M0 0h1200v800H0z"/>
+  <path fill="url(#grid)" d="M0 0h1200v800H0z"/>
+  <circle cx="934" cy="407" r="238" stroke="#EAF3ED" stroke-opacity=".11" stroke-width="2"/>
+  <circle cx="934" cy="407" r="197" stroke="#EAF3ED" stroke-opacity=".1"/>
+  <circle cx="934" cy="407" r="154" stroke="#EAF3ED" stroke-opacity=".09"/>
+  <path d="M729 407c0-113 92-205 205-205s205 92 205 205-92 205-205 205" stroke="url(#accent)" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 13" opacity=".8"/>
+  <path d="M788 407c0-81 65-146 146-146s146 65 146 146-65 146-146 146" stroke="#2DD4BF" stroke-opacity=".38" stroke-width="2"/>
+  <path d="M906 407h28m-14-14v28" stroke="#F7F1E5" stroke-opacity=".48" stroke-width="2"/>
+  <g fill="url(#accent)">
+    <rect x="856" y="346" width="7" height="48" rx="3.5"/>
+    <rect x="875" y="327" width="7" height="86" rx="3.5"/>
+    <rect x="894" y="359" width="7" height="55" rx="3.5"/>
+    <rect x="913" y="314" width="7" height="101" rx="3.5"/>
+    <rect x="932" y="335" width="7" height="79" rx="3.5"/>
+    <rect x="951" y="365" width="7" height="50" rx="3.5"/>
+    <rect x="970" y="330" width="7" height="85" rx="3.5"/>
+    <rect x="989" y="350" width="7" height="65" rx="3.5"/>
+  </g>
+  <path d="M164 125h225" stroke="#F6C75B" stroke-width="4" stroke-linecap="round"/>
+  <text x="164" y="190" fill="#F6C75B" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="7">A LOCAL RADIO CONCEPT</text>
+  <text x="156" y="337" fill="#F7F6F1" font-family="Arial,sans-serif" font-size="78" font-weight="800" letter-spacing="-4">OPTION</text>
+  <text x="160" y="420" fill="#F7F6F1" font-family="Arial,sans-serif" font-size="78" font-weight="800" letter-spacing="-3">FM</text>
+  <text x="164" y="485" fill="#D9E5E3" font-family="Arial,sans-serif" font-size="33" font-weight="500" letter-spacing="6">92.3</text>
+  <path d="M164 532h350" stroke="#D9E5E3" stroke-opacity=".26"/>
+  <text x="164" y="582" fill="#B5C9C8" font-family="Arial,sans-serif" font-size="21" font-weight="600" letter-spacing="5">AKWANGA · COMMUNITY · SOUND</text>
+  <circle cx="164" cy="674" r="5" fill="#2DD4BF"/>
+  <text x="184" y="681" fill="#93AAA9" font-family="Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="3">DESIGNED FOR LOCAL STORIES</text>
+</svg>

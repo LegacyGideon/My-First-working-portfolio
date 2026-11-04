@@ -89,17 +89,18 @@ body {
     z-index: 1;
     top: 2rem;
     right: clamp(1.5rem, 7vw, 6rem);
-    display: inline-flex;
-    min-height: 40px;
+    display: grid;
+    width: 42px;
+    height: 42px;
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.55rem 0.85rem;
+    justify-items: center;
+    padding: 0;
     border: 1px solid var(--welcome-toggle-border);
-    border-radius: 999px;
+    border-radius: 50%;
     background: var(--welcome-toggle-bg);
     color: var(--welcome-text);
     font: inherit;
-    font-size: 0.8rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: color 250ms ease, background-color 250ms ease, border-color 250ms ease;
 }
@@ -116,7 +117,7 @@ body {
 }
 
 .welcome-theme-icon {
-    font-size: 1rem;
+    line-height: 1;
 }
 
 .brand-mark {

@@ -24,8 +24,6 @@ if (themeToggle) {
         );
         themeToggle.querySelector(".welcome-theme-icon").textContent =
             isLight ? "☾" : "☀";
-        themeToggle.querySelector(".welcome-theme-text").textContent =
-            isLight ? "Dark mode" : "Light mode";
     };
 
     updateThemeToggle(initialTheme);
