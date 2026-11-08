@@ -173,7 +173,7 @@ if (scrollMotionElements.length > 0 && !prefersReducedMotion.matches) {
         group.forEach((element, index) => {
             element.style.setProperty(
                 "--scroll-motion-delay",
-                `${index * 120}ms`
+                `${index * 180}ms`
             );
         });
     });
