@@ -920,11 +920,6 @@ body {
        box-shadow 250ms ease;
 }
 
-.is-scroll-entering {
-    animation: hero-content-arrive 1250ms cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-}
-
 .project-item.is-filter-entering .project-card {
     animation: project-filter-in 320ms ease both;
 }
@@ -1117,10 +1112,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .is-scroll-entering {
-        animation: none;
-    }
-
     .project-card,
     .simon-board,
     .food-preview img,

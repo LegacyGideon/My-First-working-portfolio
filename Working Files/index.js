@@ -160,42 +160,6 @@ const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 );
 
-const scrollMotionSections = [
-    ".about-layout",
-    ".skills-layout",
-    ".projects > .container",
-    ".contact-layout"
-]
-    .map((selector) => document.querySelector(selector))
-    .filter((element) => element instanceof Element);
-
-if (
-    scrollMotionSections.length > 0 &&
-    "IntersectionObserver" in window &&
-    !prefersReducedMotion.matches
-) {
-    const scrollMotionObserver = new IntersectionObserver(
-        (entries, observer) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-
-                entry.target.classList.add("is-scroll-entering");
-                observer.unobserve(entry.target);
-            });
-        },
-        {
-            threshold: 0,
-            rootMargin: "0px"
-        }
-    );
-
-    scrollMotionSections.forEach((element) => {
-        scrollMotionObserver.observe(element);
-    });
-}
-
 const aboutImageSection = document.querySelector(".about");
 const aboutImagePhotos = Array.from(
     aboutImageSection?.querySelectorAll(".about-photo") ?? []
