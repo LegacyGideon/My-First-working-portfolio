@@ -73,6 +73,54 @@ body {
     max-width: 760px;
 }
 
+.hero-content > * {
+    animation: hero-content-arrive 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-content > :nth-child(1) {
+    animation-delay: 100ms;
+}
+
+.hero-content > :nth-child(2) {
+    animation-delay: 300ms;
+}
+
+.hero-content > :nth-child(3) {
+    animation-delay: 520ms;
+}
+
+.hero-content > :nth-child(4) {
+    animation-delay: 740ms;
+}
+
+.hero-quick-links a {
+    animation: hero-content-arrive 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-quick-links a:nth-child(1) {
+    animation-delay: 620ms;
+}
+
+.hero-quick-links a:nth-child(2) {
+    animation-delay: 780ms;
+}
+
+.hero-quick-links a:nth-child(3) {
+    animation-delay: 940ms;
+}
+
+@keyframes hero-content-arrive {
+    from {
+        opacity: 0;
+        translate: 0 28px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
 .hero-eyebrow {
     display: flex;
     align-items: center;
@@ -264,6 +312,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .hero-content > *,
+    .hero-quick-links a {
+        animation: none;
+    }
+
     .menu-toggle-line {
         transition: none;
     }
@@ -390,21 +443,18 @@ body {
 .about-photo-1 {
     z-index: 1;
     --about-photo-rotation: -10deg;
-    --about-photo-start-x: -48px;
     transform: rotate(var(--about-photo-rotation));
 }
 
 .about-photo-2 {
     z-index: 2;
     --about-photo-rotation: 8deg;
-    --about-photo-start-x: 0px;
     transform: rotate(var(--about-photo-rotation));
 }
 
 .about-photo-3 {
     z-index: 3;
     --about-photo-rotation: 0deg;
-    --about-photo-start-x: 48px;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -462,36 +512,148 @@ body {
     }
 }
 
-.about-photo.is-entering {
-    z-index: 4;
-    animation: about-photo-arrive 1100ms cubic-bezier(0.22, 0.75, 0.22, 1) both;
-}
-
-@keyframes about-photo-arrive {
-    from {
-        opacity: 0;
-        transform:
-            translate3d(var(--about-photo-start-x), 30px, 0)
-            rotate(var(--about-photo-rotation))
-            scale(0.92);
+@media (min-width: 992px) and (min-height: 720px) and (prefers-reduced-motion: no-preference) {
+    .about {
+        min-height: 250vh;
+        padding: 0;
     }
 
-    to {
+    .about-layout {
+        position: sticky;
+        top: 0;
+        min-height: 100vh;
+    }
+
+    .about.has-image-sequence .about-photo {
+        width: 56%;
+        height: 80%;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            left 700ms cubic-bezier(0.22, 1, 0.36, 1),
+            top 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .about.has-image-sequence .about-photo.is-sequence-visible {
         opacity: 1;
-        transform:
-            translate3d(0, 0, 0)
-            rotate(var(--about-photo-rotation))
-            scale(1);
+        visibility: visible;
+        animation: about-photo-reveal 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .about.has-image-sequence .about-photo-1 {
+        z-index: 1;
+        left: 0;
+        top: 16%;
+    }
+
+    .about.has-image-sequence .about-photo-2 {
+        z-index: 2;
+        left: 22%;
+        top: 8%;
+    }
+
+    .about.has-image-sequence .about-photo-3 {
+        z-index: 3;
+        left: 44%;
+        top: 16%;
+    }
+
+    @keyframes about-photo-reveal {
+        from {
+            opacity: 0;
+            translate: 0 28px;
+            scale: 0.97;
+        }
+
+        to {
+            opacity: 1;
+            translate: 0 0;
+            scale: 1;
+        }
+    }
+}
+
+@media (max-width: 991.98px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+    .about {
+        min-height: 260vh;
+        padding: 0;
+    }
+
+    .about-layout {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-content: center;
+        gap: 0.5rem;
+        padding-top: 5rem;
+        padding-bottom: 1rem;
+    }
+
+    .about-copy {
+        width: 100%;
+        max-width: 560px;
+        justify-self: center;
+        align-self: end;
+    }
+
+    .about-copy .about-label {
+        margin-bottom: 0.5rem;
+    }
+
+    .about-copy h2 {
+        margin-bottom: 0.75rem;
+        font-size: clamp(2rem, 7vw, 2.8rem);
+    }
+
+    .about-copy p {
+        margin-bottom: 0.6rem;
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
+
+    .about-photos {
+        width: min(100%, 300px);
+        aspect-ratio: 1 / 1;
+        align-self: start;
+    }
+
+    .about.has-image-sequence .about-photo {
+        width: 72%;
+        height: 82%;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            left 700ms cubic-bezier(0.22, 1, 0.36, 1),
+            top 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .about.has-image-sequence .about-photo.is-sequence-visible {
+        opacity: 1;
+        visibility: visible;
+        animation: about-photo-reveal 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .about.has-image-sequence .about-photo-1 {
+        left: 0;
+        top: 12%;
+    }
+
+    .about.has-image-sequence .about-photo-2 {
+        left: 14%;
+        top: 7%;
+    }
+
+    .about.has-image-sequence .about-photo-3 {
+        left: 28%;
+        top: 12%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .about-photo {
         transition: none;
-    }
-
-    .about-photo.is-entering {
-        animation: none;
     }
 }
 
@@ -620,8 +782,46 @@ body {
     }
 }
 
+@media (min-width: 992px) and (min-height: 720px) and (prefers-reduced-motion: no-preference) {
+    .skills {
+        min-height: 180vh;
+        padding: 0;
+    }
+
+    .skills-layout {
+        position: sticky;
+        top: 10vh;
+        height: 80vh;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skills-copy,
+    .skills-wrapper {
+        transition: transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+    }
+
+    .skills-copy {
+        width: 100%;
+        max-width: none;
+    }
+
+    .skills.is-swapped .skills-copy {
+        transform: translateX(var(--skills-swap-forward));
+    }
+
+    .skills.is-swapped .skills-wrapper {
+        transform: translateX(var(--skills-swap-backward));
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .skills-panel {
+        transition: none;
+    }
+
+    .skills-copy,
+    .skills-wrapper {
         transition: none;
     }
 }
@@ -718,6 +918,39 @@ body {
        transform 250ms ease,
        border-color 250ms ease,
        box-shadow 250ms ease;
+}
+
+.project-item {
+    animation: project-item-float 5.4s ease-in-out infinite;
+}
+
+.project-item:nth-child(3n + 2) {
+    animation-delay: -1.8s;
+}
+
+.project-item:nth-child(3n) {
+    animation-delay: -3.6s;
+}
+
+.project-item:hover,
+.project-item:focus-within {
+    animation-play-state: paused;
+}
+
+@keyframes project-item-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.is-scroll-entering {
+    animation: hero-content-arrive 850ms cubic-bezier(0.22, 1, 0.36, 1)
+        var(--scroll-motion-delay, 0ms) both;
 }
 
 .project-item.is-filter-entering .project-card {
@@ -912,6 +1145,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .is-scroll-entering,
+    .project-item {
+        animation: none;
+    }
+
     .project-card,
     .simon-board,
     .food-preview img,
@@ -1308,20 +1546,6 @@ body {
     color: #fff;
 }
 
-.scroll-reveal {
-    opacity: 0;
-    translate: 0 28px;
-    transition:
-        opacity 750ms ease,
-        translate 850ms cubic-bezier(0.2, 0.7, 0.2, 1);
-    transition-delay: var(--reveal-delay, 0ms);
-}
-
-.scroll-reveal.is-visible {
-    opacity: 1;
-    translate: 0 0;
-}
-
 body[data-theme="light"] {
     color-scheme: light;
     background-color: #eeecf5;
@@ -1634,12 +1858,6 @@ body[data-theme="light"] .site-footer-content a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .scroll-reveal {
-        opacity: 1;
-        translate: none;
-        transition: none;
-    }
-
     .contact-artwork img {
         animation: none;
     }

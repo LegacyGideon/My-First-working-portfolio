@@ -159,7 +159,44 @@ body {
 .welcome-content {
     width: min(100%, 900px);
     text-align: center;
-    animation: welcome-arrive 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.welcome-content > * {
+    animation: welcome-content-arrive 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-content > :nth-child(1) {
+    animation-delay: 100ms;
+}
+
+.welcome-content > :nth-child(2) {
+    animation-delay: 300ms;
+}
+
+.welcome-content > :nth-child(3) {
+    animation-delay: 520ms;
+}
+
+.welcome-content > :nth-child(4) {
+    animation:
+        welcome-content-arrive 850ms cubic-bezier(0.22, 1, 0.36, 1) 740ms both,
+        cta-glow 3.2s ease-in-out 1.2s infinite;
+}
+
+.welcome-content > :nth-child(5) {
+    animation-delay: 900ms;
+}
+
+@keyframes welcome-content-arrive {
+    from {
+        opacity: 0;
+        translate: 0 28px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
 }
 
 .welcome-eyebrow {
@@ -259,18 +296,6 @@ body {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.2em;
-}
-
-@keyframes welcome-arrive {
-    from {
-        opacity: 0;
-        transform: translateY(22px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 @keyframes welcome-orbit {
@@ -401,4 +426,5 @@ body[data-theme="light"] .welcome-footer {
     .welcome-cta {
         animation: none;
     }
+
 }

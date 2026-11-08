@@ -156,98 +156,178 @@ if (navigationLinks.length > 0 && "IntersectionObserver" in window) {
     });
 }
 
-const aboutSection = document.querySelector("#about");
 const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 );
 
-if (
-    aboutSection &&
-    "IntersectionObserver" in window &&
-    !prefersReducedMotion.matches
-) {
-    const photosContainer = aboutSection.querySelector(".about-photos");
-    const photos = Array.from(
-        aboutSection.querySelectorAll(".about-photo")
-    );
+const scrollMotionGroups = [
+    ".about-copy > *",
+    ".skills-copy > *, .skills-wrapper",
+    ".projects-heading > *, .project-card",
+    ".contact-copy > :not(.contact-form), .contact-form > *, .contact-artwork, .contact-social-panel"
+].map((selector) => Array.from(document.querySelectorAll(selector)));
+const scrollMotionElements = scrollMotionGroups.flat();
 
-    if (photosContainer && photos.length > 0) {
-        const aboutObserver = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
+if (scrollMotionElements.length > 0 && !prefersReducedMotion.matches) {
+    scrollMotionGroups.forEach((group) => {
+        group.forEach((element, index) => {
+            element.style.setProperty(
+                "--scroll-motion-delay",
+                `${index * 120}ms`
+            );
+        });
+    });
 
-                    observer.unobserve(entry.target);
+    let scrollMotionFrameRequested = false;
+    const updateScrollMotion = () => {
+        scrollMotionFrameRequested = false;
+        const viewportStart = window.innerHeight * 0.08;
+        const viewportEnd = window.innerHeight * 0.92;
 
-                    photos.forEach((photo, index) => {
-                        window.setTimeout(() => {
-                            photo.classList.add("is-entering");
-                            photo.addEventListener(
-                                "animationend",
-                                () => photo.classList.remove("is-entering"),
-                                { once: true }
-                            );
-                        }, index * 550);
-                    });
-                });
-            },
-            { threshold: 0.25 }
-        );
+        scrollMotionElements.forEach((element) => {
+            const bounds = element.getBoundingClientRect();
+            const isInView =
+                bounds.bottom > viewportStart && bounds.top < viewportEnd;
 
-        aboutObserver.observe(aboutSection);
-    }
+            element.classList.toggle("is-scroll-entering", isInView);
+        });
+    };
+
+    const requestScrollMotionUpdate = () => {
+        if (!scrollMotionFrameRequested) {
+            scrollMotionFrameRequested = true;
+            window.requestAnimationFrame(updateScrollMotion);
+        }
+    };
+
+    window.addEventListener("scroll", requestScrollMotionUpdate, {
+        passive: true
+    });
+    window.addEventListener("resize", requestScrollMotionUpdate);
+    updateScrollMotion();
 }
 
-const revealSelectors = [
-    ".hero-content",
-    ".hero-quick-links",
-    ".about-copy",
-    ".skills-copy",
-    ".skills-wrapper",
-    ".projects-heading",
-    ".project-card",
-    ".contact-copy",
-    ".contact-artwork",
-    ".contact-social-panel"
-];
-const revealElements = Array.from(
-    document.querySelectorAll(revealSelectors.join(", "))
+const aboutImageSection = document.querySelector(".about");
+const aboutImagePhotos = Array.from(
+    aboutImageSection?.querySelectorAll(".about-photo") ?? []
 );
+const aboutImageSequenceMedia = window.matchMedia(
+    "(min-height: 600px) and (prefers-reduced-motion: no-preference)"
+);
+let aboutImageSequenceFrameRequested = false;
 
-if (
-    revealElements.length > 0 &&
-    "IntersectionObserver" in window &&
-    !prefersReducedMotion.matches
-) {
-    const projectCards = document.querySelectorAll(".project-card");
+const updateAboutImageSequence = () => {
+    aboutImageSequenceFrameRequested = false;
 
-    projectCards.forEach((card, index) => {
-        card.style.setProperty("--reveal-delay", `${index * 120}ms`);
+    if (!aboutImageSection || aboutImagePhotos.length === 0) {
+        return;
+    }
+
+    if (!aboutImageSequenceMedia.matches) {
+        aboutImageSection.classList.remove("has-image-sequence");
+        aboutImagePhotos.forEach((photo) => {
+            photo.classList.remove("is-sequence-visible");
+        });
+        return;
+    }
+
+    aboutImageSection.classList.add("has-image-sequence");
+
+    const sectionTop =
+        aboutImageSection.getBoundingClientRect().top + window.scrollY;
+    const scrollDistance =
+        aboutImageSection.offsetHeight - window.innerHeight;
+    const progress =
+        scrollDistance > 0
+            ? Math.min(
+                1,
+                Math.max(0, (window.scrollY - sectionTop) / scrollDistance)
+            )
+            : 0;
+    const visiblePhotoCount =
+        progress >= 0.56 ? 3 : progress >= 0.28 ? 2 : 1;
+
+    aboutImagePhotos.forEach((photo, index) => {
+        photo.classList.toggle("is-sequence-visible", index < visiblePhotoCount);
     });
+};
 
-    const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
+const requestAboutImageSequenceUpdate = () => {
+    if (!aboutImageSequenceFrameRequested) {
+        aboutImageSequenceFrameRequested = true;
+        window.requestAnimationFrame(updateAboutImageSequence);
+    }
+};
 
-                entry.target.classList.add("scroll-reveal", "is-visible");
-                observer.unobserve(entry.target);
-            });
-        },
-        {
-            threshold: 0.12,
-            rootMargin: "0px 0px -5% 0px"
-        }
+if (aboutImageSection && aboutImagePhotos.length > 0) {
+    window.addEventListener("scroll", requestAboutImageSequenceUpdate, {
+        passive: true
+    });
+    window.addEventListener("resize", requestAboutImageSequenceUpdate);
+    aboutImageSequenceMedia.addEventListener(
+        "change",
+        requestAboutImageSequenceUpdate
     );
+    updateAboutImageSequence();
+}
 
-    revealElements.forEach((element) => {
-        element.classList.add("scroll-reveal");
-        revealObserver.observe(element);
+const skillsSection = document.querySelector(".skills");
+const skillsLayout = skillsSection?.querySelector(".skills-layout");
+const skillsSwapMedia = window.matchMedia(
+    "(min-width: 992px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)"
+);
+let skillsSwapFrameRequested = false;
+
+const updateSkillsSwap = () => {
+    skillsSwapFrameRequested = false;
+
+    if (!skillsSection || !skillsLayout) {
+        return;
+    }
+
+    if (!skillsSwapMedia.matches) {
+        skillsSection.classList.remove("is-swapped");
+        skillsSection.style.removeProperty("--skills-swap-forward");
+        skillsSection.style.removeProperty("--skills-swap-backward");
+        return;
+    }
+
+    const columnGap =
+        Number.parseFloat(window.getComputedStyle(skillsLayout).columnGap) || 0;
+    const swapDistance = (skillsLayout.clientWidth - columnGap) / 2 + columnGap;
+    const sectionStart =
+        skillsSection.getBoundingClientRect().top + window.scrollY;
+    const scrollDistance = skillsSection.offsetHeight - skillsLayout.offsetHeight;
+    const scrollProgress =
+        scrollDistance > 0
+            ? (window.scrollY - sectionStart) / scrollDistance
+            : 0;
+
+    skillsSection.style.setProperty(
+        "--skills-swap-forward",
+        `${swapDistance}px`
+    );
+    skillsSection.style.setProperty(
+        "--skills-swap-backward",
+        `${-swapDistance}px`
+    );
+    skillsSection.classList.toggle("is-swapped", scrollProgress >= 0.5);
+};
+
+const requestSkillsSwapUpdate = () => {
+    if (!skillsSwapFrameRequested) {
+        skillsSwapFrameRequested = true;
+        window.requestAnimationFrame(updateSkillsSwap);
+    }
+};
+
+if (skillsSection && skillsLayout) {
+    window.addEventListener("scroll", requestSkillsSwapUpdate, {
+        passive: true
     });
+    window.addEventListener("resize", requestSkillsSwapUpdate);
+    skillsSwapMedia.addEventListener("change", requestSkillsSwapUpdate);
+    updateSkillsSwap();
 }
 
 const $projectFilters = $(".project-filter");
