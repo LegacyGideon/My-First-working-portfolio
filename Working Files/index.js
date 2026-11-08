@@ -160,51 +160,40 @@ const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 );
 
-const scrollMotionGroups = [
-    ".about-copy > *",
-    ".skills-copy > *, .skills-wrapper",
-    ".projects-heading > *, .project-card",
-    ".contact-copy > :not(.contact-form), .contact-form > *, .contact-artwork, .contact-social-panel"
-].map((selector) => Array.from(document.querySelectorAll(selector)));
-const scrollMotionElements = scrollMotionGroups.flat();
+const scrollMotionSections = [
+    ".about-layout",
+    ".skills-layout",
+    ".projects > .container",
+    ".contact-layout"
+]
+    .map((selector) => document.querySelector(selector))
+    .filter((element) => element instanceof Element);
 
-if (scrollMotionElements.length > 0 && !prefersReducedMotion.matches) {
-    scrollMotionGroups.forEach((group) => {
-        group.forEach((element, index) => {
-            element.style.setProperty(
-                "--scroll-motion-delay",
-                `${index * 180}ms`
-            );
-        });
-    });
+if (
+    scrollMotionSections.length > 0 &&
+    "IntersectionObserver" in window &&
+    !prefersReducedMotion.matches
+) {
+    const scrollMotionObserver = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
 
-    let scrollMotionFrameRequested = false;
-    const updateScrollMotion = () => {
-        scrollMotionFrameRequested = false;
-        const viewportStart = window.innerHeight * 0.08;
-        const viewportEnd = window.innerHeight * 0.92;
-
-        scrollMotionElements.forEach((element) => {
-            const bounds = element.getBoundingClientRect();
-            const isInView =
-                bounds.bottom > viewportStart && bounds.top < viewportEnd;
-
-            element.classList.toggle("is-scroll-entering", isInView);
-        });
-    };
-
-    const requestScrollMotionUpdate = () => {
-        if (!scrollMotionFrameRequested) {
-            scrollMotionFrameRequested = true;
-            window.requestAnimationFrame(updateScrollMotion);
+                entry.target.classList.add("is-scroll-entering");
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0,
+            rootMargin: "0px"
         }
-    };
+    );
 
-    window.addEventListener("scroll", requestScrollMotionUpdate, {
-        passive: true
+    scrollMotionSections.forEach((element) => {
+        scrollMotionObserver.observe(element);
     });
-    window.addEventListener("resize", requestScrollMotionUpdate);
-    updateScrollMotion();
 }
 
 const aboutImageSection = document.querySelector(".about");
@@ -237,15 +226,18 @@ const updateAboutImageSequence = () => {
         aboutImageSection.getBoundingClientRect().top + window.scrollY;
     const scrollDistance =
         aboutImageSection.offsetHeight - window.innerHeight;
+    const revealStart = sectionTop - window.innerHeight * 0.25;
+    const revealDistance =
+        scrollDistance + window.innerHeight * 0.25;
     const progress =
-        scrollDistance > 0
+        revealDistance > 0
             ? Math.min(
                 1,
-                Math.max(0, (window.scrollY - sectionTop) / scrollDistance)
+                Math.max(0, (window.scrollY - revealStart) / revealDistance)
             )
             : 0;
     const visiblePhotoCount =
-        progress >= 0.56 ? 3 : progress >= 0.28 ? 2 : 1;
+        progress >= 0.56 ? 3 : progress >= 0.28 ? 2 : progress > 0 ? 1 : 0;
 
     aboutImagePhotos.forEach((photo, index) => {
         photo.classList.toggle("is-sequence-visible", index < visiblePhotoCount);
@@ -277,6 +269,7 @@ const skillsSwapMedia = window.matchMedia(
     "(min-width: 992px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)"
 );
 let skillsSwapFrameRequested = false;
+let skillsIsSwapped = false;
 
 const updateSkillsSwap = () => {
     skillsSwapFrameRequested = false;
@@ -286,6 +279,7 @@ const updateSkillsSwap = () => {
     }
 
     if (!skillsSwapMedia.matches) {
+        skillsIsSwapped = false;
         skillsSection.classList.remove("is-swapped");
         skillsSection.style.removeProperty("--skills-swap-forward");
         skillsSection.style.removeProperty("--skills-swap-backward");
@@ -302,6 +296,11 @@ const updateSkillsSwap = () => {
         scrollDistance > 0
             ? (window.scrollY - sectionStart) / scrollDistance
             : 0;
+    if (!skillsIsSwapped && scrollProgress >= 0.56) {
+        skillsIsSwapped = true;
+    } else if (skillsIsSwapped && scrollProgress <= 0.44) {
+        skillsIsSwapped = false;
+    }
 
     skillsSection.style.setProperty(
         "--skills-swap-forward",
@@ -311,7 +310,7 @@ const updateSkillsSwap = () => {
         "--skills-swap-backward",
         `${-swapDistance}px`
     );
-    skillsSection.classList.toggle("is-swapped", scrollProgress >= 0.5);
+    skillsSection.classList.toggle("is-swapped", skillsIsSwapped);
 };
 
 const requestSkillsSwapUpdate = () => {

@@ -920,37 +920,9 @@ body {
        box-shadow 250ms ease;
 }
 
-.project-item {
-    animation: project-item-float 5.4s ease-in-out infinite;
-}
-
-.project-item:nth-child(3n + 2) {
-    animation-delay: -1.8s;
-}
-
-.project-item:nth-child(3n) {
-    animation-delay: -3.6s;
-}
-
-.project-item:hover,
-.project-item:focus-within {
-    animation-play-state: paused;
-}
-
-@keyframes project-item-float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
 .is-scroll-entering {
     animation: hero-content-arrive 1250ms cubic-bezier(0.22, 1, 0.36, 1)
-        var(--scroll-motion-delay, 0ms) both;
+        both;
 }
 
 .project-item.is-filter-entering .project-card {
@@ -1145,8 +1117,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .is-scroll-entering,
-    .project-item {
+    .is-scroll-entering {
         animation: none;
     }
 
